@@ -120,63 +120,51 @@ window.onload = function init()
 	// SCENE rotations
     document.getElementById( "xButtonSP" ).onclick = function () {
         nodesAngle[sceneId] += 3;
-		console.log(nodesAngle);
 		initNodes(sceneId);
     };
     document.getElementById( "yButtonSP" ).onclick = function () {
         nodesAngle[sceneId+1] += 3;
-		console.log(nodesAngle);
 		initNodes(sceneId);
     };
     document.getElementById( "zButtonSP" ).onclick = function () {
         nodesAngle[sceneId+2] += 3;
-		console.log(nodesAngle);
 		initNodes(sceneId);
     };
     document.getElementById( "xButtonSN" ).onclick = function () {
         nodesAngle[sceneId] -= 3;
-		console.log(nodesAngle);
 		initNodes(sceneId);
     };
     document.getElementById( "yButtonSN" ).onclick = function () {
         nodesAngle[sceneId+1] -= 3;
-		console.log(nodesAngle);
 		initNodes(sceneId);
     };
     document.getElementById( "zButtonSN" ).onclick = function () {
         nodesAngle[sceneId+2] -= 3;
-		console.log(nodesAngle);
 		initNodes(sceneId);
     };
 	// MAZE rotations 
 	document.getElementById( "xButtonMP" ).onclick = function () {
         nodesAngle[mazeId] += 3;
-		console.log(nodesAngle);
 		initNodes(mazeId);
     };
     document.getElementById( "yButtonMP" ).onclick = function () {
         nodesAngle[mazeId+1] += 3;
-		console.log(nodesAngle);
 		initNodes(mazeId);
     };
     document.getElementById( "zButtonMP" ).onclick = function () {
         nodesAngle[mazeId+2] += 3;
-		console.log(nodesAngle);
 		initNodes(mazeId);
     };
     document.getElementById( "xButtonMN" ).onclick = function () {
         nodesAngle[mazeId] -= 3;
-		console.log(nodesAngle);
 		initNodes(mazeId);
     };
     document.getElementById( "yButtonMN" ).onclick = function () {
         nodesAngle[mazeId+1] -= 3;
-		console.log(nodesAngle);
 		initNodes(mazeId);
     };
     document.getElementById( "zButtonMN" ).onclick = function () {
         nodesAngle[mazeId+2] -= 3;
-		console.log(nodesAngle);
 		initNodes(mazeId);
     };
 	// toggle animation 
@@ -186,7 +174,18 @@ window.onload = function init()
 	document.getElementById( "animationOff" ).onclick = function () {
 		animationFlag = 0;
     };
-
+	document.getElementById( "cameraSwitchButton" ).onclick = function() {
+		// if the character is not moving or rotating
+		if ( characterMovement == 0 && characterRotation == 0 ){
+			cameraMode*=-1.0;
+			changedCamera = 1;
+			if ( cameraMode > 0 )
+				direction = 0;
+			else 
+				direction = 1;
+		}
+	}
+	// start the rendering 
     render();
 }
 //---------------------------------------------------------------
@@ -198,42 +197,86 @@ window.addEventListener("keydown", function (event) {
   }
 
   switch (event.key) {
-    case "ArrowDown":
-    	// code for "down arrow" key press.
-      	if ( animationFlag == 1 ){
+    case "ArrowUp":
+      	// ----------------- code for "up arrow" key press.
+		// behaviour for the top down camera mode
+    	if ( animationFlag == 1 && cameraMode > 0 ){
+			// if the character is not already moving, move it
 			if ( characterMovement == 0 ) {
 				characterMovement = 1;
-				movementDirection = 1;
+				// set the direction to up
+				direction = 0;
+			}
+		}
+		// behaviour for the first person camera mode
+		if ( animationFlag == 1 && cameraMode < 0 ){
+			if ( characterMovement == 0 && characterRotation == 0 ) {
+				// if the character is not already moving or rotating, move it in the current direction
+				characterMovement = 1;
 			}
 		}
       	break;
-    case "ArrowUp":
-      	// code for "up arrow" key press.
-    	if ( animationFlag == 1 ){
+	case "ArrowRight":
+      	// ------------------- code for "right arrow" key press.
+		// behaviour for the top down camera mode
+      	if ( animationFlag == 1 && cameraMode > 0 ){
+			// if the character is not already moving, move it
 			if ( characterMovement == 0 ) {
 				characterMovement = 1;
-				movementDirection = 0;
+				// set the direction to right
+				direction = 1;
 			}
+		}
+		// behaviour for the first person camera mode
+		if ( animationFlag == 1 && cameraMode < 0 ){
+			// if the character is not already rotating, rotate it
+			if ( characterRotation == 0 ){
+				characterRotation = 1;
+				// set the direction to clockwise
+				rotationDirection = 1;
+			}
+		}
+      	break;
+    case "ArrowDown":
+    	// --------------------- code for "down arrow" key press.
+		// behaviour for the top down camera mode
+      	if ( animationFlag == 1 && cameraMode > 0 ){
+			// if the character is not already moving, move it
+			if ( characterMovement == 0 ) {
+				characterMovement = 1;
+				// set the direction to down
+				direction = 2;
+			}
+		}
+		// behaviour for the first person camera mode
+		if ( animationFlag == 1 && cameraMode < 0 ){
+			// do nothing
 		}
       	break;
     case "ArrowLeft":
-      	// code for "left arrow" key press.
-      	if ( animationFlag == 1 ){
+      	// ---------------------- code for "left arrow" key press.
+		// behaviour for the top down camera mode
+      	if ( animationFlag == 1 && cameraMode > 0 ){
+			// if the character is not already moving, move it
 			if ( characterMovement == 0 ) {
 				characterMovement = 1;
-				movementDirection = 2;
+				// set the direction to left
+				direction = 3;
+			}
+		}
+		// behaviour for the first person camera mode
+		if ( animationFlag == 1 && cameraMode < 0 ){
+			// behaviour for the first person camera mode
+			if ( animationFlag == 1 && cameraMode < 0 ){
+				// if the character is not already rotating, rotate it
+				if ( characterRotation == 0 ){
+					characterRotation = 1;
+					// set the direction to anti-clockwise
+					rotationDirection = 0;
+				}
 			}
 		}
 		break;
-    case "ArrowRight":
-      	// code for "right arrow" key press.
-      	if ( animationFlag == 1 ){
-			if ( characterMovement == 0 ) {
-				characterMovement = 1;
-				movementDirection = 3;
-			}
-		}
-      	break;
     default:
       return; // Quit when this doesn't handle the key event.
   }
@@ -250,10 +293,50 @@ window.addEventListener("keydown", function (event) {
 function render()
 {
     gl.clear( gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-	//	projection
-	projectionMatrix = ortho(-6, 6, -6, 6, 15, -15);
+	gl.uniform1f(gl.getUniformLocation(program,"cameraMode"),cameraMode);
+	// if the camera is in first person
+	if ( cameraMode < 0 ){
+		if ( changedCamera == 1 ) {
+			// ------------ remove the X rotation from the scene that is useful only in top down view
+			nodesAngle[sceneId] = 0;
+			initNodes(sceneId);
+			// adjust lightPosition
+			var tempLight = lightPosition[3];
+			lightPosition[3] = -lightPosition[2];
+			lightPosition[2] = lightPosition[3];
+			gl.uniform4fv	(gl.getUniformLocation(program,"lightPosition"), 	flatten(lightPosition));
+			changedCamera = 0;
+		}
+		// ------------------------------------------------------------------------------
+		var cameraEye = 	[-torsoX+factorZ,1,-(torsoZ+0.5)-factorX];
+		var cameraTarget = 	[-torsoX-0.5,-0.5,-(torsoZ+0.5)];
+		var cameraUp = 		[0,1,0];
+		// ------------------------------------------------------------------------------
+		modelViewMatrix = lookAt(cameraEye, cameraTarget, cameraUp);
+		// ------------------------------------------------------------------------------
+		projectionMatrix 	= perspective(120, 1, 0.1, 20);
+	}
+	else {
+		if ( changedCamera == 1 ) {
+			// add the X rotation from the scene that is useful only in top down view
+			nodesAngle[sceneId] = -75;
+			initNodes(sceneId);
+			// adjust lightposition
+			var tempLight = lightPosition[3];
+			lightPosition[3] = -lightPosition[2];
+			lightPosition[2] = lightPosition[3];
+			gl.uniform4fv	(gl.getUniformLocation(program,"lightPosition"), 	flatten(lightPosition));
+			changedCamera = 0;
+		}
+		// reset rotations from first person mode 
+		nodesAngle[torsoId+1] = 0;
+		initNodes(torsoId);
+		modelViewMatrix 	= mat4();
+		projectionMatrix 	= ortho(-6, 6, -6, 6, 15, -15);
+	}
+	
 	//sending matrices to GPU
+	gl.uniformMatrix4fv(modelViewMatrixLoc, false, flatten(projectionMatrix));
 	gl.uniformMatrix4fv(projectionMatrixLoc, false, flatten(projectionMatrix));
 	
 	traverse(sceneId);

@@ -112,8 +112,15 @@ function initNodes(Id) {
 			break;
 		
 		case torsoId:
-			// translation
-			m = mult ( m, translate( torsoX, torsoY, torsoZ ) );
+			// -----------------rotation, used to rotate the torso while in first person view
+				// first translate by -center
+				m = mult ( m, translate( (torsoX+0.5), -0.5, (torsoZ+0.5) ) );
+				// then, once the torso is in the origin, we can rotate it
+				m = mult ( m, rotate( nodesAngle[torsoId+1], 0, 1, 0) );
+				// finally, translate it back 
+				m = mult ( m, translate( -(torsoX+0.5), 0.5, -(torsoZ+0.5) ) );
+			// -----------------translation, used when the user makes it moveAbove
+				m = mult ( m, translate(torsoX,torsoY,torsoZ));
 			figure[torsoId] = createNode( m, torso, null, botUpSLegId );
 			break;
 		
