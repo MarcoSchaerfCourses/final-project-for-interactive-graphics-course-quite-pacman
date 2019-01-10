@@ -424,7 +424,7 @@ function firstPersonMove(direction){
 			// translate the whole character
 			torsoZ -= 0.05;
 			// MOVE THE LIGHT SOURCE
-			lightPosition[2] -= 0.05;
+			lightPosition[1] -= 0.05;
 			break;
 		case 1:
 			// ---------------- moving right
@@ -438,7 +438,7 @@ function firstPersonMove(direction){
 			// translate the whole character
 			torsoZ += 0.05;
 			// MOVE THE LIGHT SOURCE
-			lightPosition[2] += 0.05;
+			lightPosition[1] += 0.05;
 			break;
 		case 3:
 			// ----------------- moving left

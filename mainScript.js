@@ -305,6 +305,13 @@ function render()
 			lightPosition[3] = -lightPosition[2];
 			lightPosition[2] = lightPosition[3];
 			gl.uniform4fv	(gl.getUniformLocation(program,"lightPosition"), 	flatten(lightPosition));
+			// reset camera factors
+			factorX = 0;
+			factorZ = 0;
+			// reset camera position
+			cameraPosition = 0;
+			// reset direction
+			direction = 1;
 			changedCamera = 0;
 		}
 		// ------------------------------------------------------------------------------

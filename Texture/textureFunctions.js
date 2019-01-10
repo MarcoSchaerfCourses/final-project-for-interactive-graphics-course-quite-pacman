@@ -3,10 +3,10 @@
 function computeTexture(){
 	for(  var  i = 0;  i < texSize ;  i++ ){
 		for(  var  j = 0;  j <texSize ;  j++ ){
-			image[4*i*texSize+4*j ]  = red;//(256*256*red) + (256*green) + blue;
-			image[4*i*texSize+4*j+1] = green;//(256*256*red) + (256*green) + blue;
-			image[4*i*texSize+4*j+2] = blue;//(256*256*red) + (256*green) + blue;
-			image[4*i*texSize+4*j+3] = 255;//(256*256*red) + (256*green) + blue;
+			image[4*i*texSize+4*j ]  = red;
+			image[4*i*texSize+4*j+1] = green;
+			image[4*i*texSize+4*j+2] = blue;
+			image[4*i*texSize+4*j+3] = 255;
 		}
 	}
 	configureTexture(image);
