@@ -315,13 +315,13 @@ function render()
 			changedCamera = 0;
 		}
 		// ------------------------------------------------------------------------------
-		var cameraEye = 	[-torsoX+factorZ,1,-(torsoZ+0.5)-factorX];
-		var cameraTarget = 	[-torsoX-0.5,-0.5,-(torsoZ+0.5)];
+		var cameraEye = 	[(-torsoX-0.9)-factorZ,1,-(torsoZ+0.5)+factorX];
+		var cameraTarget = 	[-torsoX-0.5,0.1,-(torsoZ+0.5)];
 		var cameraUp = 		[0,1,0];
 		// ------------------------------------------------------------------------------
 		modelViewMatrix = lookAt(cameraEye, cameraTarget, cameraUp);
 		// ------------------------------------------------------------------------------
-		projectionMatrix 	= perspective(120, 1, 0.1, 20);
+		projectionMatrix 	= perspective(110, -1, 0.1, -20);
 	}
 	else {
 		if ( changedCamera == 1 ) {

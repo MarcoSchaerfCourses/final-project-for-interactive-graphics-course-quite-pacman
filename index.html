@@ -53,10 +53,6 @@ void main()
 	fTexCoord = vTexCoord;
 	fPosition = vPosition;
 	gl_Position = projectionMatrix * modelViewMatrix * vPosition;
-	if ( cameraMode < 0.0 ){
-		gl_Position.y = -gl_Position.y;
-	}
-	
 }
 </script>
 

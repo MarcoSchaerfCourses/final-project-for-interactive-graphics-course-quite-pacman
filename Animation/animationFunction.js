@@ -86,29 +86,29 @@ function rotateCharacter(){
 			// -------------------------- update the cameraMode
 			switch(cameraPosition){
 				case 0:
-					factorX -= 0.025;
-					factorZ -= 0.025;
+					factorX -= 0.02;
+					factorZ -= 0.02;
 					if(rotationCounter == 19){
 						cameraPosition = 3;
 					}
 					break;
 				case 1:
-					factorX += -0.025;
-					factorZ += 0.025;
+					factorX += -0.02;
+					factorZ += 0.02;
 					if(rotationCounter == 19){
 						cameraPosition = 0;
 					}
 					break;
 				case 2:
-					factorX += 0.025;
-					factorZ += 0.025;
+					factorX += 0.02;
+					factorZ += 0.02;
 					if(rotationCounter == 19){
 						cameraPosition = 1;
 					}
 					break;
 				case 3:
-					factorX += 0.025;
-					factorZ += -0.025;
+					factorX += 0.02;
+					factorZ += -0.02;
 					if(rotationCounter == 19){
 						cameraPosition = 2;
 					}
@@ -161,29 +161,29 @@ function rotateCharacter(){
 			// -------------------------- update the cameraMode
 			switch(cameraPosition){
 				case 0:
-					factorX += 0.025;
-					factorZ += -0.025;
+					factorX += 0.02;
+					factorZ += -0.02;
 					if(rotationCounter == 19){
 						cameraPosition = 1;
 					}
 					break;
 				case 1:
-					factorX += -0.025;
-					factorZ += -0.025;
+					factorX += -0.02;
+					factorZ += -0.02;
 					if(rotationCounter == 19){
 						cameraPosition = 2;
 					}
 					break;
 				case 2:
-					factorX += -0.025;
-					factorZ += 0.025;
+					factorX += -0.02;
+					factorZ += 0.02;
 					if(rotationCounter == 19){
 						cameraPosition = 3;
 					}
 					break;
 				case 3:
-					factorX += 0.025;
-					factorZ += 0.025;
+					factorX += 0.02;
+					factorZ += 0.02;
 					if(rotationCounter == 19){
 						cameraPosition = 0;
 					}
